@@ -156,3 +156,4 @@ This provides a stable channel-level reference point to complement adset-level r
 - Make pLTV horizon explicit (if accessible) and align CAC/valuation windows more tightly.
 - Add a “confidence flag” (LB vs Binomial) more prominently in the UI (to steer interpretation).
 - Add monitoring for attribution/tracking shifts that affect redistribution behavior.
+
