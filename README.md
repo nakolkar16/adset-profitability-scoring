@@ -21,9 +21,6 @@ Sparse/noisy attribution at adset level makes naive CAC unstable. This approach 
 - Full write-up: **[`docs/case-study.md`](./docs/case-study.md)**
 - Core logic snippets (sanitized): **[`snippets/core-logic.md`](./snippets/core-logic.md)**
 
-## Visuals
-- Cumulative CAC vs spend coverage chart (used in the weekly deliverable):
-  - See: `img/`
+## Pipeline Overview
+![Pipeline overview](img/pipeline-diagram.png)
 
-## Notes on confidentiality
-This is a **case study**. Code snippets are sanitized and focus on methodology; no proprietary identifiers, credentials, or client data are included.
