@@ -1,26 +1,42 @@
 # CAC vs pLTV Adset Scoring (Weekly Budget Steering)
 
-Automated a weekly decision system to **pause/scale adsets** across Meta, TikTok, and Google (Brand/Non-Brand/PMAX) by comparing **client-provided predicted LTV (pLTV)** against a statistically robust **CAC** estimate.
+A weekly decision system to **pause/scale adsets** across Meta, TikTok, and Google (Brand/Non-Brand/PMAX) by comparing **client-provided predicted LTV (pLTV)** against a statistically robust **CAC** estimate.
 
-**Impact & scale**
+**Scale & impact**
 - ~**500–1000 adsets** scored weekly → rolled up to ~**200 campaigns**
-- Used by marketing experts to steer weekly spend and **monthly budget allocation**
-- Contributed to ~**20% ROI improvement** and a steady improvement in the pLTV/CAC ratio
-- Maintained **>95% spend coverage** (typically ~98%) after filtering
+- Used by channel owners to steer weekly spend and **monthly budget allocation**
+- Contributed to ~**20% ROI improvement** and a steady rise in the pLTV/CAC ratio
+- Maintained **>95% spend coverage** after filtering (typically **~98%**)
 
-## What makes this robust
-Sparse/noisy attribution at adset level makes naive CAC unstable. This approach balances **recency** and **statistical signal**:
+---
 
-- **Pre-filters:** drop adsets with low recent spend and no measurable engagement signal
-- **Dynamic lookback window (3–8 weeks):** choose the smallest recent window meeting signal thresholds
-- **Binomial “optimistic CAC” fallback:** if signal remains too small, use a beta/Clopper-Pearson upper bound on CVR
-- **Explainable scoring:** rank adsets by signed distance from break-even line **pLTV = CAC**
-- **Channel benchmark:** “Target CAC” defined as CAC at **80% spend coverage** (diagnostic + reference)
+## Why this is needed
+Adset-level attribution is often **sparse/noisy**. Naive CAC estimates can explode (tiny denominators) or lag decisions (too long windows).  
+This pipeline balances **recency** and **signal strength** while staying explainable.
 
-## Repo contents
-- Full write-up: **[`docs/case-study.md`](./docs/case-study.md)**
-- Core logic snippets (sanitized): **[`snippets/core-logic.md`](./snippets/core-logic.md)**
+---
 
-## Pipeline Overview
+## Method
+1. **Preprocess** weekly adset data and align weeks (fill missing weeks)
+2. **Attribution correction:** apply a per-channel uplift factor to create `redistributed_ihc`
+3. **Pre-filters:** keep only adsets with recent spend + minimal engagement signal
+4. **Dynamic lookback (3–8w):** pick the smallest recent window with enough signal
+5. **CAC estimate:** LB CAC or **Binomial “optimistic CAC”** fallback (beta/Clopper-Pearson upper bound)
+6. **Score & rank:** distance from break-even line **pLTV = CAC**
+7. **Rollups:** adset → campaign → channel
+8. **Deliver:** Google Sheet + summary doc + Slack update (weekly)
+
+---
+
+## Pipeline overview
 ![Pipeline overview](img/pipeline-diagram.png)
+---
 
+## Read more
+- Full write-up: **[`docs/case-study.md`](docs/case-study.md)**
+- Core logic snippets (sanitized): **[`snippets/core-logic.md`](snippets/core-logic.md)**
+
+---
+
+## Notes on confidentiality
+This is a **case study**. Snippets focus on methodology; no proprietary identifiers, credentials, or client data are included.
