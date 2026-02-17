@@ -1,4 +1,4 @@
-# CAC vs pLTV Adset Scoring (Weekly Budget Steering)
+## CAC vs pLTV Adset Scoring (Weekly Budget Steering)
 
 A weekly decision system to **pause/scale adsets** across Meta, TikTok, and Google (Brand/Non-Brand/PMAX) by comparing **client-provided predicted LTV (pLTV)** against a statistically robust **CAC** estimate.
 
